@@ -33,7 +33,7 @@ export class Bridge extends BaseEntity {
   @Column('text', { nullable: true })
   url: string;
 
-  @Field(() => [Vote], { nullable: true })
+  @Field(() => [Vote], { defaultValue: [] })
   @OneToMany(() => Vote, vote => vote.bridge)
   votes: Vote[];
   

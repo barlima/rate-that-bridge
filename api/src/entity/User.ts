@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,6 +11,10 @@ export class User {
   @Column()
   lastName: string;
 
+  @Column('text', { nullable: true })
+  email?: string;
+
   @Column()
-  age: number;
+  googleId: string;
+
 }
