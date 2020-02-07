@@ -7,6 +7,7 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { BridgeResolver } from "./resolvers/BridgeResolver";
 import { VoteResolver } from "./resolvers/VoteResolver";
+import { UserResolver } from "./resolvers/UserResolver";
 import corsMiddleware from "./middleware/cors";
 import sessionMiddleware from "./middleware/session";
 import passportMiddleware from "./middleware/passport";
@@ -27,25 +28,31 @@ dotenv.config();
     schema: await buildSchema({
       resolvers: [
         BridgeResolver,
-        VoteResolver
+        VoteResolver,
+        UserResolver,
       ],
       validate: true
     }),
-    context: ({ req, res }) => ({ req, res })
+    context: ({ req, res }) => {
+      return ({ 
+        res,
+        req,
+        user: req.user || {},
+      })
+    }
   });
 
   app.use(corsMiddleware);
   app.use(sessionMiddleware);
   app.use(passportMiddleware.initialize());
+  app.use(passportMiddleware.session());
 
-  app.get('/auth/google', passportMiddleware.authenticate('google', { scope: ['profile'] }));
+  app.get('/auth/google', passportMiddleware.authenticate('google', { scope: ['profile', 'email'] }));
 
   app.get('/auth/google/callback', 
-    passportMiddleware.authenticate('google', { session: false }),
-    (req, res) => {
-      (req.session as any).userId = (req.user as any).id;
-      res.redirect('/graphql');
-  });
+    passportMiddleware.authenticate('google'),
+    (_, res) => res.redirect(`${process.env.FRONTEND_HOST}`),
+  );
 
   apolloServer.applyMiddleware({ app, cors: false });
   

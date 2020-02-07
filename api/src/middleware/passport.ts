@@ -8,14 +8,23 @@ dotenv.config();
 
 const port = process.env.PORT || 4000;
 
+passport.serializeUser((user, done) => {  
+  done(null, user);
+});
+
+passport.deserializeUser((userDataFromCookie, done) => {  
+  done(null, userDataFromCookie);
+});
+
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENT_ID as string,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     callbackURL: `${process.env.API_HOST}:${port}/auth/google/callback`,
   },
   async (_, __, profile, cb) => {
-    const { id, name } = profile;
+    const { id, name, emails } = profile;
 
+    let email: string | undefined;
     let firstName: string | undefined;
     let lastName: string | undefined;
 
@@ -24,8 +33,15 @@ passport.use(new Strategy({
       lastName = name.familyName
     }
 
+    if (emails && emails?.length > 0) {
+      const verifiedEmail = emails.find(e => (e as any).verified);
+      if (verifiedEmail) {
+        email = verifiedEmail.value;
+      }
+    }
+
     let user = await User.findOne({
-      where: { googleId: id}
+      where: { googleId: id }
     })
 
     // register new user
@@ -34,6 +50,7 @@ passport.use(new Strategy({
         googleId: id,
         firstName,
         lastName,
+        email,
       }).save();
     }
 

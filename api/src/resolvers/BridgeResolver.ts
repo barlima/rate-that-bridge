@@ -1,5 +1,6 @@
-import { Resolver, Mutation, Arg, Int, Query, InputType, Field } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Query, InputType, Field, Ctx } from "type-graphql";
 import { Bridge } from "../entity/Bridge";
+import { Context } from "../types/graphql-utils";
 
 @InputType()
 class BridgeInput {
@@ -71,7 +72,8 @@ export class BridgeResolver {
   }
 
   @Query(() => [Bridge])
-  bridges() {
+  bridges(@Ctx() ctx: Context) {
+    console.log(ctx.user);
     return Bridge.find({ relations: ["votes"] })
   }
 }
