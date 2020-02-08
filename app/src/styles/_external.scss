@@ -1,0 +1,15 @@
+$google-orange: #dc4e41;
+
+.google-login {
+  background-color: $google-orange;
+  color: white;
+  font-weight: 300;
+  padding: 8px 20px;
+  text-align: center;
+  min-width: 240px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($google-orange, 10);
+  }
+}
