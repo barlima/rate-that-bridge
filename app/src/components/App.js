@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import UserContext from '../context/userContext';
 
 const ROLL_DOWN = "roll-down";
 const ROLL_UP = "roll-up";
@@ -8,7 +9,8 @@ const FADE_OUT = "fade-out";
 const SQUEEZED = "squeezed";
 const RELEASED = "released";
 
-const App = () => {
+const App = ({ history }) => {
+  const [ currentUser ] = useContext(UserContext);
   const [expandedClass, setExpandedClass] = useState('');
   const [fadeClass, setFadeClass] = useState('');
   const [squeezeClass, setSqueezeClass] = useState('');
@@ -25,6 +27,14 @@ const App = () => {
     }
   }
 
+  const handleStartClick = () => {
+    if (!currentUser.id) {
+      return toggleExpendedClass();
+    }
+
+    history.push('/vote');
+  }
+
 
   return (
     <div className="landing-page">
@@ -32,17 +42,22 @@ const App = () => {
         <div className="landing-page__panel">
           <div className="landing-page__options">
             <div className="landing-page__option">
-              <div className="landing-page__option-label" onClick={toggleExpendedClass}>
+              <div className="landing-page__option-label" onClick={handleStartClick}>
                 Start
               </div>
-              <div className={`landing-page__option-expand ${expandedClass}`}>
-                <div
-                  href="http://localhost:4000/auth/google" 
-                  className={`google-login landing-page__option-button ${fadeClass}`}
-                >
-                  Sign in with Google
-                </div>
-              </div>
+              {
+                !currentUser.id && (
+                  <div className={`landing-page__option-expand ${expandedClass}`}>
+                    <a
+                      href="http://localhost:4000/auth/google" 
+                      className={`google-login landing-page__option-button ${fadeClass}`}
+                    >
+                      Sign in with Google
+                    </a>
+                  </div>
+                )
+              }
+              
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
               <div className="landing-page__option-label">
@@ -74,4 +89,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default withRouter(App);

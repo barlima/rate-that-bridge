@@ -51,7 +51,7 @@ dotenv.config();
 
   app.get('/auth/google/callback', 
     passportMiddleware.authenticate('google'),
-    (_, res) => res.redirect(`${process.env.FRONTEND_HOST}`),
+    (_, res) => res.redirect(`${process.env.FRONTEND_HOST}/vote`),
   );
 
   apolloServer.applyMiddleware({ app, cors: false });

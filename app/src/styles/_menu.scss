@@ -1,0 +1,31 @@
+.header {
+  background: $dark-pink;
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  width: 100%;
+
+  &__options {
+    display: flex;
+  }
+
+  &__option {
+    color: $light-grey;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 20px;
+    text-decoration: none;
+    transition: background-color .25s ease-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: darken($dark-pink, 10);
+    }
+  }
+}
+
+.menu__content {
+  background: linear-gradient(to bottom, $dark-pink -50%, $blue);
+  height: calc(100vh - 75px - 70px);
+}

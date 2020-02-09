@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import AppRouter from './routers/AppRouter';
 import * as serviceWorker from './serviceWorker';
@@ -7,6 +7,9 @@ import './styles/index.scss';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
+import UserContext from './context/userContext';
+import userReducer from './reducers/user';
+
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
   credentials: 'include',
@@ -14,7 +17,9 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client} >
-    <AppRouter />
+    <UserContext.Provider value={useReducer(userReducer, {})}>
+      <AppRouter />
+    </UserContext.Provider>
   </ApolloProvider>
 )
 

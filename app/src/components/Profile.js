@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import withMenu from './Menu/withMenu';
 
 const BRIDGES = gql`
   query getBridges {
@@ -27,4 +28,4 @@ const Profile = () => {
   )
 }
 
-export default Profile;
+export default withMenu(Profile);

@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+
+  &__box {
+    background-color: $light-grey;
+    border: 1px solid $blue;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    transition: background-color .5s ease-out;
+
+    &:hover {
+      background-color: white;
+      cursor: pointer;
+    }
+
+    &-selected {
+      span {
+        color: $dark-pink;
+      }
+    }
+
+    &-label {
+      color: $blue;
+      font-weight: 700;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-disabled {
+    &:hover {
+      cursor: default;
+      background-color: $light-grey;
+    }
+  }
+}

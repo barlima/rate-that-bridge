@@ -15,6 +15,7 @@ export class UserResolver {
       return null;
     }
 
-    return await User.findOne(userId, { relations: ["vote"] })
+    // TODO: optimize query
+    return await User.findOne(userId, { relations: ["votes"] })
   }
 }
