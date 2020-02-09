@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import fill from 'lodash/fill';
 import { withRouter } from 'react-router-dom';
 import { preparePagination } from '../../helpers/pagination';
 

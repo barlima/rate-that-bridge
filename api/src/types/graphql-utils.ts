@@ -1,3 +1,5 @@
+import { registerEnumType } from "type-graphql";
+
 interface CurrentUser {
   id?: string
 }
@@ -17,3 +19,15 @@ export interface ResolverMap {
     ) => any;
   };
 }
+
+export enum Period {
+  TODAY,
+  THIS_WEEK,
+  THIS_MONTH,
+  ALL_TIME,
+}
+
+registerEnumType(Period, {
+  name: "Period",
+  description: "Top bridges periods",
+});

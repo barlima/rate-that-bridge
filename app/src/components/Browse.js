@@ -30,7 +30,7 @@ const Browse = () => {
   const [ search, setSearch ] = useState();
 
   const handleClick = id => {
-    if (selected) {
+    if (selected === id) {
       return setSelected()
     }
 
@@ -74,7 +74,7 @@ const Browse = () => {
                 {
                   selected === bridge.id && (
                     <div className="browse__item-image">
-                      Foto
+                      Foto / or maybe voting results?
                     </div>
                   )
                 }
@@ -87,7 +87,6 @@ const Browse = () => {
         {
           pages.length > 1 && <Pagination pages={pages.length} />
         }
-        <Pagination pages={15} />
       </div>
     </>
   )

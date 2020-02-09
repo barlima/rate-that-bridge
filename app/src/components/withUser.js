@@ -31,7 +31,7 @@ const withUser = WrappedComponent => {
       return 'Loading...';
     }
 
-    const user = get(data, "me", {});
+    const user = get(data, "me") || {};
 
     dispatch(
       setUser({

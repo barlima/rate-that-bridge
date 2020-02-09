@@ -1,6 +1,8 @@
 import { Resolver, Mutation, Arg, Int, Query, InputType, Field, Ctx } from "type-graphql";
 import { Bridge } from "../entity/Bridge";
-import { Context } from "../types/graphql-utils";
+import { Context, Period } from "../types/graphql-utils";
+import { getDate } from '../helpers/time';
+import moment from 'moment';
 
 @InputType()
 class BridgeInput {
@@ -76,4 +78,28 @@ export class BridgeResolver {
     console.log(ctx.user);
     return Bridge.find({ relations: ["votes"] })
   }
+
+  @Query(() => [Bridge])
+  async topBridges(@Arg('period', () => Period) period: Period) {
+    const createdAfter = getDate(period);
+
+    // ToDo Use knexJS for querying
+    const bridges = await Bridge.find({ relations: ['votes'] });
+
+    const selected = bridges.map(bridge => {
+      const votes = bridge.votes.filter(vote => 
+        moment(vote.created).isAfter(moment(createdAfter))
+      );
+
+      return {
+        ...bridge,
+        votes
+      }
+    });
+
+    return selected
+      .filter(bridge => bridge.votes.length > 0)
+      .sort((a,b) => b.votes.length - a.votes.length);
+  }
+  
 }
