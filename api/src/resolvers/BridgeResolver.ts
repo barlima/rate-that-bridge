@@ -15,6 +15,9 @@ class BridgeInput {
   @Field()
   city: string
 
+  @Field(() => String, { nullable: true })
+  region?: string
+
   @Field(() => Int, { nullable: true })
   year?: number
 
@@ -35,6 +38,9 @@ class BridgeUpdateInput {
 
   @Field(() => String, { nullable: true })
   city?: string
+
+  @Field(() => String, { nullable: true })
+  region?: string
 
   @Field(() => Int, { nullable: true })
   year?: number

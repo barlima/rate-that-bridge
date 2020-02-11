@@ -1,18 +1,19 @@
-import { Resolver, Mutation, Arg, Int, Query } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Query, Ctx } from "type-graphql";
 import { Bridge } from "../entity/Bridge";
 import { Vote } from "../entity/Vote";
 import { User } from "../entity/User";
+import { Context } from "../types/graphql-utils";
 
 @Resolver()
 export class VoteResolver {
-  @Mutation(() => Vote)
+  @Mutation(() => Vote, { nullable: true })
   async vote(
     @Arg('bridgeId', () => Int) bridgeId: number,
-    @Arg('userId', () => Int) userId: number
+    @Ctx() ctx: Context,
   ) {
     const bridge = await Bridge.findOne(bridgeId);
-    const user = await User.findOne(userId);
-    if (!bridge || !user) { return false };
+    const user = await User.findOne(ctx.user.id);
+    if (!bridge || !user) { return };
     const vote = await Vote.create({ bridge, user }).save()
     return vote;
   }

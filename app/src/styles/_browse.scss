@@ -32,6 +32,7 @@
     text-align: center;
     width: 30%;
     min-width: 300px;
+    min-height: 130px;
     margin: 12.5px;
     box-shadow: 0 0 rgba(45, 45, 45, 0.8);
     transition: all .5s ease-out;
@@ -45,7 +46,7 @@
     &-name {
       font-weight: 700;
       font-size: 25px;
-      padding-bottom: 10px;
+      padding-bottom: 5px;
     }
 
     &-city {
@@ -56,12 +57,19 @@
       font-weight: 300;
     }
 
-    &-image {
+    &-more {
+      opacity: 0;
       background-color: $light-grey;
-      position: absolute;
-      bottom: -15px;
+      height: 30px;
       left: 0;
+      padding: 0 25px;
+      position: absolute;
       width: 100%;
+
+      &-votes {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 
@@ -80,4 +88,30 @@
     text-align: center;
     width: 100%;
   }
+}
+
+.show {
+  opacity: 1;
+  bottom: -24px;
+  color: $blue;
+  animation: rollDown .5s ease-out;
+}
+
+.hide {
+  opacity: 0;
+  bottom: 0;
+  color: rgba(0,0,0,0);
+  animation: rollUp .5s ease-out;
+  animation-fill-mode: backwards;
+}
+
+@keyframes rollDown {
+  from { bottom: 0; color: rgba(0,0,0,0);}
+  to { bottom: -24px; color: $blue; }
+}
+
+@keyframes rollUp {
+  0% { bottom: -24px; color: $blue; opacity: 1; }
+  97% { bottom: -1px; color: rgba(0,0,0,0); opacity: 1;}
+  100% { bottom: 0; color: rgba(0,0,0,0); opacity: 0;}
 }

@@ -19,11 +19,15 @@ export class User extends BaseEntity {
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
-  email?: string;
+  email: string;
 
   @Field()
   @Column()
   googleId: string;
+
+  @Field()
+  @Column({ default: false })
+  admin: boolean
 
   @Field(() => [Vote], { defaultValue: [] })
   @OneToMany(() => Vote, vote => vote.bridge)

@@ -21,6 +21,10 @@ export class Bridge extends BaseEntity {
   @Column()
   city: string;
 
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
+  region: string;
+
   @Field(() => Int, { nullable: true })
   @Column('int', { nullable: true })
   year: number;
@@ -33,16 +37,11 @@ export class Bridge extends BaseEntity {
   @Column('text', { nullable: true })
   url: string;
 
-  @Field(() => [Vote], { defaultValue: [] })
-  @OneToMany(() => Vote, vote => vote.bridge)
-  votes: Vote[];
-  
   @Field()
   @Column({ default: false })
   verified: boolean
 
-  // @BeforeInsert()
-  // beforeInsertActions() {
-  //   this.verified = false;
-  // }
+  @Field(() => [Vote], { defaultValue: [] })
+  @OneToMany(() => Vote, vote => vote.bridge)
+  votes: Vote[];
 }

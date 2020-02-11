@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import UserContext from '../context/userContext';
 
 const ROLL_DOWN = "roll-down";
@@ -71,7 +71,7 @@ const App = ({ history }) => {
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
               <div className="landing-page__option-label">
-                Contribute
+                <Link to="/contribute">Contribute</Link>
               </div>
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>

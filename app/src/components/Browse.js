@@ -7,6 +7,7 @@ import withMenu from './Menu/withMenu';
 import { getPaginatedItems } from '../helpers/common';
 import { filterByName } from '../helpers/browse';
 import Pagination from './Common/Pagination';
+import Loading from './Loading';
 
 const BRIDGES = gql`
   query getBridges {
@@ -28,18 +29,21 @@ const PER_PAGE = 9;
 const Browse = ({ location }) => {
   const { loading, error, data } = useQuery(BRIDGES);
   const [ selected, setSelected ] = useState();
+  const [ previous, setPrevious ] = useState();
   const [ search, setSearch ] = useState();
 
   const handleClick = id => {
     if (selected === id) {
+      setPrevious(id)
       return setSelected()
     }
 
+    setPrevious(selected)
     setSelected(id)
   }
 
   if (loading) {
-    return "Loading...";
+    return <Loading />;
   }
 
   const bridges = get(data, "bridges", []);
@@ -75,11 +79,14 @@ const Browse = ({ location }) => {
                   { bridge.year }
                 </span>
                 {
-                  selected === bridge.id && (
-                    <div className="browse__item-image">
-                      Foto / or maybe voting results?
+                  // selected === bridge.id && (
+                    <div className={`browse__item-more ${bridge.id === selected ? 'show' : ''} ${bridge.id === previous ? 'hide' : ''}`}>
+                      <div className="browse__item-more-votes">
+                        <span>Votes</span>
+                        <span>{bridge.votes ? bridge.votes.length : 0}</span>
+                      </div>
                     </div>
-                  )
+                  // )
                 }
               </div>
             ))

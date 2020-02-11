@@ -11,6 +11,7 @@ import {
   ALL_TIME,
   getPeriod
 } from '../helpers/top-bridges';
+import Loading from './Loading';
 
 const TOP_BRIDGES = gql`
   query getTopBridges($period: Period!) {
@@ -38,6 +39,10 @@ const TopBridges = props => {
     },
     fetchPolicy: "network-only"
   });
+
+  if (loading) { 
+    return <Loading />;
+  }
 
   const setTab = param => {
     if (param === TODAY) {
@@ -80,7 +85,7 @@ const TopBridges = props => {
             ))
           ) : (
             <div className="top-bridges__empty">
-              {`It seems that no one has voted ${tabKind === 'all time' ? 'yet' : tabKind}.`}
+              {`It seems that no one has voted ${tab === ALL_TIME ? 'yet' : tabKind}.`}
             </div>
           )
         }

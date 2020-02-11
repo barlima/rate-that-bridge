@@ -89,11 +89,16 @@
 
     &-label {
       color: $light-grey;
-      font-size: 25px;
+      font-size: 25px;      
       text-transform: uppercase;
       font-weight: 700;
       padding: 30px;
       position: relative;
+
+      a {
+        color: $light-grey;
+        text-decoration: none;
+      }
     }
 
     &-expand {
