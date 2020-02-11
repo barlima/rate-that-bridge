@@ -27,5 +27,6 @@
 
 .menu__content {
   background: linear-gradient(to bottom, $dark-pink -50%, $blue);
-  height: calc(100vh - 75px - 70px);
+  min-height: calc(100vh - 75px - 70px);
+  padding-bottom: 25px;
 }

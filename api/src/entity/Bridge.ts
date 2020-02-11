@@ -37,4 +37,12 @@ export class Bridge extends BaseEntity {
   @OneToMany(() => Vote, vote => vote.bridge)
   votes: Vote[];
   
+  @Field()
+  @Column({ default: false })
+  verified: boolean
+
+  // @BeforeInsert()
+  // beforeInsertActions() {
+  //   this.verified = false;
+  // }
 }

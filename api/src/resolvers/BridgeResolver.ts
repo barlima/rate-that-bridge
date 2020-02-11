@@ -1,8 +1,8 @@
 import { Resolver, Mutation, Arg, Int, Query, InputType, Field, Ctx } from "type-graphql";
 import { Bridge } from "../entity/Bridge";
-import { Context, Period } from "../types/graphql-utils";
+import { Context, Period, BridgeFilter } from "../types/graphql-utils";
 import { getDate } from '../helpers/time';
-import moment from 'moment';
+import { createQueryBuilder } from "typeorm";
 
 @InputType()
 class BridgeInput {
@@ -74,32 +74,41 @@ export class BridgeResolver {
   }
 
   @Query(() => [Bridge])
-  bridges(@Ctx() ctx: Context) {
-    console.log(ctx.user);
-    return Bridge.find({ relations: ["votes"] })
+  bridges(
+    @Ctx() ctx: Context,
+    @Arg('filter', () => BridgeFilter, { defaultValue: BridgeFilter.ALL }) filter?: BridgeFilter,
+  ) {
+    switch (filter) {
+      case BridgeFilter.NOT_VOTED:
+        return createQueryBuilder('Bridge')
+          .leftJoinAndMapMany(
+            "Bridge.votes",
+            "Vote",
+            "vote",
+            "Bridge.id = vote.bridgeId AND vote.userId = :userId",
+            { userId: ctx.user.id })
+          .where("vote.id IS NULL")
+          .getMany()
+      case BridgeFilter.VOTED:
+        return createQueryBuilder('Bridge')
+          .innerJoinAndMapMany("Bridge.votes", "Vote", "vote", "Bridge.id = vote.bridgeId")
+          .where("vote.userId = :userId", { userId: ctx.user.id })
+          .getMany()
+      default:
+        return Bridge
+          .find({ relations: ["votes"] })
+    }
   }
-
+  
   @Query(() => [Bridge])
   async topBridges(@Arg('period', () => Period) period: Period) {
     const createdAfter = getDate(period);
 
-    // ToDo Use knexJS for querying
-    const bridges = await Bridge.find({ relations: ['votes'] });
+    const bridges = await createQueryBuilder('Bridge')
+      .innerJoinAndMapMany("Bridge.votes", "Vote", "vote", "Bridge.id = vote.bridgeId")
+      .where("vote.created > :date", { date: createdAfter })
+      .getMany();
 
-    const selected = bridges.map(bridge => {
-      const votes = bridge.votes.filter(vote => 
-        moment(vote.created).isAfter(moment(createdAfter))
-      );
-
-      return {
-        ...bridge,
-        votes
-      }
-    });
-
-    return selected
-      .filter(bridge => bridge.votes.length > 0)
-      .sort((a,b) => b.votes.length - a.votes.length);
+    return bridges.sort((a,b) => (b as Bridge).votes.length - (a as Bridge).votes.length);
   }
-  
 }

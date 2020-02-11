@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import get from 'lodash/get';
+import { withRouter } from 'react-router-dom';
 import withMenu from './Menu/withMenu';
 import { getPaginatedItems } from '../helpers/common';
 import { filterByName } from '../helpers/browse';
@@ -24,7 +25,7 @@ const BRIDGES = gql`
 
 const PER_PAGE = 9;
 
-const Browse = () => {
+const Browse = ({ location }) => {
   const { loading, error, data } = useQuery(BRIDGES);
   const [ selected, setSelected ] = useState();
   const [ search, setSearch ] = useState();
@@ -45,6 +46,8 @@ const Browse = () => {
   const filteredBridges = filterByName(bridges, search);
   const paginated = getPaginatedItems(filteredBridges, PER_PAGE);
   const pages = paginated.length;
+  const params = new URLSearchParams(location.search);
+  const page = params.get('page') || 1;
 
   return (
     <>
@@ -59,8 +62,8 @@ const Browse = () => {
       </div>
       <div className="browse">
         {
-          paginated.map(items => (
-            items.map(bridge => (
+          paginated.length > 0 ? (
+            paginated[page - 1].map(bridge => (
               <div key={bridge.id} className="browse__item" onClick={() => handleClick(bridge.id)}>
                 <span className="browse__item-name">
                   {bridge.name}
@@ -80,16 +83,18 @@ const Browse = () => {
                 }
               </div>
             ))
-          ))
+          ) : (
+            <div className="browse__empty">I'm sorry. The are no bridges.</div>
+          )
         }
       </div>
       <div className="browse__pagination">
         {
-          pages.length > 1 && <Pagination pages={pages.length} />
+          pages > 1 && <Pagination pages={pages} />
         }
       </div>
     </>
   )
 }
 
-export default withMenu(Browse);
+export default withMenu(withRouter(Browse));

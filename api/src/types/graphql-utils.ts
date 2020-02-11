@@ -31,3 +31,14 @@ registerEnumType(Period, {
   name: "Period",
   description: "Top bridges periods",
 });
+
+export enum BridgeFilter {
+  ALL,
+  VOTED,
+  NOT_VOTED,
+}
+
+registerEnumType(BridgeFilter, {
+  name: "BridgeFilter",
+  description: "VOTED | NOT_VOTED | ALL",
+});

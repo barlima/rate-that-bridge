@@ -53,7 +53,7 @@
     }
 
     &-year {
-      font-weight: 400;
+      font-weight: 300;
     }
 
     &-image {
@@ -69,6 +69,15 @@
     display: flex;
     justify-content: center;
     margin-top: 12.5px;
+    width: 100%;
+  }
+
+  &__empty {
+    color: $light-grey;
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 50px;
+    text-align: center;
     width: 100%;
   }
 }

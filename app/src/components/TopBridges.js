@@ -30,6 +30,7 @@ const TopBridges = props => {
   const { location, history } = props;
   const params = new URLSearchParams(location.search);
   const tab = params.get('tab');
+  const tabKind = tab ? tab.split('_').join(' ') : 'today';
   
   const { loading, error, data } = useQuery(TOP_BRIDGES, {
     variables: {
@@ -78,28 +79,11 @@ const TopBridges = props => {
               </div>
             ))
           ) : (
-            <span>Empty state</span>
+            <div className="top-bridges__empty">
+              {`It seems that no one has voted ${tabKind === 'all time' ? 'yet' : tabKind}.`}
+            </div>
           )
         }
-          {/* <div className="top-bridges__list-item">
-            <span className="top-bridges__list-item-position">2</span>
-            <span className="top-bridges__list-item-name">My Bridge</span>
-          </div>
-
-          <div className="top-bridges__list-item">
-            <span className="top-bridges__list-item-position">3</span>
-            <span className="top-bridges__list-item-name">My Bridge</span>
-          </div>
-
-          <div className="top-bridges__list-item">
-            <span className="top-bridges__list-item-position">4</span>
-            <span className="top-bridges__list-item-name">My Bridge</span>
-          </div>
-
-          <div className="top-bridges__list-item">
-            <span className="top-bridges__list-item-position">5</span>
-            <span className="top-bridges__list-item-name">My Bridge</span>
-          </div> */}
         </div>
       </div>
     </div>
