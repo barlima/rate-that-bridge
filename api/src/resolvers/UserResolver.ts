@@ -1,6 +1,25 @@
-import { Resolver, Query, Ctx } from "type-graphql";
+import { Resolver, Query, Ctx, ObjectType, Field, Int } from "type-graphql";
 import { User } from "../entity/User";
 import { Context } from "../types/graphql-utils";
+import { createQueryBuilder } from "typeorm";
+
+@ObjectType()
+class Stats {
+  @Field(() => Int)
+  bridges: number
+
+  @Field(() => Int)
+  users: number
+
+  @Field(() => Int)
+  votes: number
+
+  constructor(bridges: number, users: number, votes: number) {
+    this.bridges = bridges;
+    this.votes = votes;
+    this.users = users;
+  }
+}
 
 @Resolver()
 export class UserResolver {
@@ -15,7 +34,21 @@ export class UserResolver {
       return null;
     }
 
-    // TODO: optimize query
     return await User.findOne(userId, { relations: ["votes"] })
+  }
+
+  @Query(() => Stats, { nullable: true })
+  async stats(@Ctx() ctx: Context) {
+    const user = await User.findOne(ctx.user.id, { relations: ["votes"] })
+
+    if (!user || !user.admin) {
+      return null;
+    }
+
+    const bridges = await createQueryBuilder('Bridge').getCount();
+    const users = await createQueryBuilder('User').getCount();
+    const votes = await createQueryBuilder('Vote').getCount();
+
+    return new Stats(bridges, users, votes);
   }
 }

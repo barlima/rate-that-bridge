@@ -1,4 +1,4 @@
-import { registerEnumType } from "type-graphql";
+import { registerEnumType, InputType, Field } from "type-graphql";
 
 interface CurrentUser {
   id?: string
@@ -32,13 +32,33 @@ registerEnumType(Period, {
   description: "Top bridges periods",
 });
 
-export enum BridgeFilter {
+// export enum BridgeFilter {
+//   ALL,
+//   VOTED,
+//   NOT_VOTED,
+// }
+
+// registerEnumType(BridgeFilter, {
+//   name: "BridgeFilter",
+//   description: "VOTED | NOT_VOTED | ALL",
+// });
+
+export enum Voted {
   ALL,
   VOTED,
   NOT_VOTED,
 }
 
-registerEnumType(BridgeFilter, {
-  name: "BridgeFilter",
+registerEnumType(Voted, {
+  name: "Voted",
   description: "VOTED | NOT_VOTED | ALL",
 });
+
+@InputType()
+export class BridgeFilter {
+  @Field(() => Voted, { defaultValue: Voted.ALL })
+  voted: Voted;
+
+  @Field(() => Boolean, { defaultValue: true })
+  verified: Boolean;
+}

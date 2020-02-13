@@ -11,7 +11,7 @@ import {
   ALL_TIME,
   getPeriod
 } from '../helpers/top-bridges';
-import Loading from './Loading';
+import Loading from './Common/Loading';
 
 const TOP_BRIDGES = gql`
   query getTopBridges($period: Period!) {

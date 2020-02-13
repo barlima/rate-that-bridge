@@ -7,7 +7,7 @@ import withMenu from './Menu/withMenu';
 import { getPaginatedItems } from '../helpers/common';
 import { filterByName } from '../helpers/browse';
 import Pagination from './Common/Pagination';
-import Loading from './Loading';
+import Loading from './Common/Loading';
 
 const BRIDGES = gql`
   query getBridges {
@@ -79,14 +79,12 @@ const Browse = ({ location }) => {
                   { bridge.year }
                 </span>
                 {
-                  // selected === bridge.id && (
-                    <div className={`browse__item-more ${bridge.id === selected ? 'show' : ''} ${bridge.id === previous ? 'hide' : ''}`}>
-                      <div className="browse__item-more-votes">
-                        <span>Votes</span>
-                        <span>{bridge.votes ? bridge.votes.length : 0}</span>
-                      </div>
+                  <div className={`browse__item-more ${bridge.id === selected ? 'show' : ''} ${bridge.id === previous ? 'hide' : ''}`}>
+                    <div className="browse__item-more-votes">
+                      <span>Votes</span>
+                      <span>{bridge.votes ? bridge.votes.length : 0}</span>
                     </div>
-                  // )
+                  </div>
                 }
               </div>
             ))

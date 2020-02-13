@@ -87,7 +87,7 @@ const Contribute = () => {
   }
 
   return (
-    <div className="contribute">
+    <div className="contribute secondary-background">
       <div className="contribute__back">
         <Link to="/vote"><span>{"<"}</span> Back to Vote</Link>
       </div>

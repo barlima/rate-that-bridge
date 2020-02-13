@@ -1,29 +1,23 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import React, { useContext } from 'react';
 import withMenu from './Menu/withMenu';
-
-const BRIDGES = gql`
-  query getBridges {
-    bridges {
-      id
-      name
-      city
-      country
-      year
-      votes {
-        id
-      }
-    }
-  }
-`
+import UserContext from '../context/userContext';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
-  const { loading, error, data } = useQuery(BRIDGES);
+  const [ user ] = useContext(UserContext);
 
   return (
-    <div>
-      Profile
+    <div className="profile">
+      <span>{ user.firstName } { user.lastName }</span>
+      <span>{ user.email }</span>
+
+      {
+        user.admin && (
+          <div>
+            <Link to="/admin">Admin Panel</Link>
+          </div>
+        )
+      }
     </div>
   )
 }

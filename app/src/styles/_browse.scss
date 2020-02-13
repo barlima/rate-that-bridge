@@ -94,23 +94,23 @@
   opacity: 1;
   bottom: -24px;
   color: $blue;
-  animation: rollDown .5s ease-out;
+  animation: rollDownBrowse .5s ease-out;
 }
 
 .hide {
   opacity: 0;
   bottom: 0;
   color: rgba(0,0,0,0);
-  animation: rollUp .5s ease-out;
+  animation: rollUpBrowse .5s ease-out;
   animation-fill-mode: backwards;
 }
 
-@keyframes rollDown {
+@keyframes rollDownBrowse {
   from { bottom: 0; color: rgba(0,0,0,0);}
   to { bottom: -24px; color: $blue; }
 }
 
-@keyframes rollUp {
+@keyframes rollUpBrowse {
   0% { bottom: -24px; color: $blue; opacity: 1; }
   97% { bottom: -1px; color: rgba(0,0,0,0); opacity: 1;}
   100% { bottom: 0; color: rgba(0,0,0,0); opacity: 0;}

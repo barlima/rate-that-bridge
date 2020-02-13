@@ -6,7 +6,6 @@ import get from 'lodash/get';
 import chunk from 'lodash/chunk';
 import shuffle from 'lodash/shuffle';
 import { Link } from 'react-router-dom';
-import Loading from './Loading';
 
 const BRIDGES = gql`
   query getBridges($filter: BridgeFilter!) {
@@ -35,7 +34,9 @@ const Vote = () => {
     skip: pairs.length > 0,
     fetchPolicy: "network-only",
     variables: {
-      filter: "NOT_VOTED"
+      filter: {
+        voted: "NOT_VOTED"
+      }
     }
   });
 
@@ -64,10 +65,6 @@ const Vote = () => {
     }
   }
 
-  if (loading) {
-    return <Loading />;
-  }
-
   const currentPair = pairs.pop();
 
   return (
@@ -88,18 +85,20 @@ const Vote = () => {
             </div>
           </div>
         ) : (
-          <div className="vote__no-more">
-            <span className="vote__no-more-text">
-              Thank you for all your votes!
-              <br/>
-              There are no more bridges available.
-            </span>
-            <Link to="/contribute">
-              <button className="vote__no-more-button">
-                Add More Bridges
-              </button>
-            </Link>
-          </div>
+          !loading && (
+            <div className="vote__no-more">
+              <span className="vote__no-more-text">
+                Thank you for all your votes!
+                <br/>
+                There are no more bridges available.
+              </span>
+              <Link to="/contribute">
+                <button className="vote__no-more-button">
+                  Add More Bridges
+                </button>
+              </Link>
+            </div>
+          )
         )
       }
     </div>
