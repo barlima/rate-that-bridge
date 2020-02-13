@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import { withRouter } from 'react-router-dom';
 import withMenu from './Menu/withMenu';
 import { getPaginatedItems } from '../helpers/common';
-import { filterByName } from '../helpers/browse';
+import { filterBridges } from '../helpers/browse';
 import Pagination from './Common/Pagination';
 import Loading from './Common/Loading';
 
@@ -47,7 +47,7 @@ const Browse = ({ location }) => {
   }
 
   const bridges = get(data, "bridges", []);
-  const filteredBridges = filterByName(bridges, search);
+  const filteredBridges = filterBridges(bridges, search);
   const paginated = getPaginatedItems(filteredBridges, PER_PAGE);
   const pages = paginated.length;
   const params = new URLSearchParams(location.search);

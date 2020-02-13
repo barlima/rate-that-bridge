@@ -28,4 +28,17 @@ export class VoteResolver {
   votes() {
     return Vote.find({ relations: ["bridge", "user"] })
   }
+
+  @Query(() => [Vote], { defaultValue: [] })
+  async myVotes(
+    @Ctx() ctx: Context
+  ) {
+    const user = await User.findOne(ctx.user.id);
+
+    if (!user) {
+      return [];
+    }
+
+    return Vote.find({ relations: ["bridge", "user"], where: { userId: user.id } });
+  }
 }
