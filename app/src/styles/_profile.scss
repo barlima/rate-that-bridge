@@ -1,5 +1,10 @@
 .profile {
   padding: 25px;
+  display: flex;
+
+  & > * {
+    flex: 1;
+  } 
 
   &__user-data {
     display: flex;
@@ -42,5 +47,48 @@
     color: $light-grey;
     font-size: 20px;
     padding: 25px 0;
+  }
+
+  &__recently-voted {
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      color: $light-grey;
+      font-size: 25px;
+    }
+
+    &-items {
+      margin-top: 25px;
+    }
+
+    &-item {
+      background-color: $light-grey;
+      color: $blue;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 20px;
+      width: 75%;
+      margin-bottom: 15px;
+    }
+
+    &-date {
+      font-weight: 300;
+    }
+  }
+
+  &__favorite-title {
+    color: $light-grey;
+    font-size: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+  }
+
+  &__no-votes {
+    color: $light-grey;
+    font-size: 25px;
+    font-weight: 300;
   }
 }

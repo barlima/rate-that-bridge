@@ -15,3 +15,7 @@ export const getDate = (period: Period) => {
       return moment('2000-01-01').toISOString();
   }
 }
+
+export const getDayStart = () => {
+  return moment().startOf('day').toISOString();
+}

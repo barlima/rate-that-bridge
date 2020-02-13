@@ -91,6 +91,8 @@ const Vote = () => {
                 Thank you for all your votes!
                 <br/>
                 There are no more bridges available.
+                <br/>
+                Come back and vote tomorrow :)
               </span>
               <Link to="/contribute">
                 <button className="vote__no-more-button">

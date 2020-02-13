@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import UserContext from '../context/userContext';
+import withUser from './withUser';
 
 const ROLL_DOWN = "roll-down";
 const ROLL_UP = "roll-up";
@@ -9,8 +9,7 @@ const FADE_OUT = "fade-out";
 const SQUEEZED = "squeezed";
 const RELEASED = "released";
 
-const App = ({ history }) => {
-  const [ currentUser ] = useContext(UserContext);
+const App = ({ history, user: currentUser }) => {
   const [expandedClass, setExpandedClass] = useState('');
   const [fadeClass, setFadeClass] = useState('');
   const [squeezeClass, setSqueezeClass] = useState('');
@@ -34,7 +33,6 @@ const App = ({ history }) => {
 
     history.push('/vote');
   }
-
 
   return (
     <div className="landing-page">
@@ -89,4 +87,4 @@ const App = ({ history }) => {
   );
 }
 
-export default withRouter(App);
+export default withRouter(withUser(App));

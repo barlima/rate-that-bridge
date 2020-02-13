@@ -39,6 +39,6 @@ export class VoteResolver {
       return [];
     }
 
-    return Vote.find({ relations: ["bridge", "user"], where: { userId: user.id } });
+    return Vote.find({ relations: ["bridge", "user"], where: { user } });
   }
 }

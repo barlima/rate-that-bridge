@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Arg, Int, Query, InputType, Field, Ctx } from "type-graphql";
 import { Bridge } from "../entity/Bridge";
 import { Context, Period, BridgeFilter, Voted } from "../types/graphql-utils";
-import { getDate } from '../helpers/time';
+import { getDate, getDayStart } from '../helpers/time';
 import { createQueryBuilder } from "typeorm";
 import { User } from "../entity/User";
 
@@ -104,6 +104,8 @@ export class BridgeResolver {
       { defaultValue: { voted: Voted.ALL, verified: true } }
     ) filter?: BridgeFilter,
   ) {
+    const startOfTheDay = getDayStart();
+
     switch (filter?.voted) {
       case Voted.NOT_VOTED:
         return createQueryBuilder('Bridge')
@@ -111,14 +113,19 @@ export class BridgeResolver {
             "Bridge.votes",
             "Vote",
             "vote",
-            "Bridge.id = vote.bridgeId AND vote.userId = :userId",
-            { userId: ctx.user.id })
+            "Bridge.id = vote.bridgeId AND vote.userId = :userId AND vote.created > :date",
+            { userId: ctx.user.id, date: startOfTheDay })
           .where("vote.id IS NULL")
           .andWhere("Bridge.verified = :verified", { verified: filter.verified ? 1 : 0 })
           .getMany()
       case Voted.VOTED:
         return createQueryBuilder('Bridge')
-          .innerJoinAndMapMany("Bridge.votes", "Vote", "vote", "Bridge.id = vote.bridgeId")
+          .innerJoinAndMapMany(
+            "Bridge.votes",
+            "Vote",
+            "vote",
+            "Bridge.id = vote.bridgeId AND vote.created > :date",
+            { date: startOfTheDay })
           .where("vote.userId = :userId", { userId: ctx.user.id })
           .andWhere("Bridge.verified = :verified", { verified: filter.verified ? 1 : 0 })
           .getMany()
