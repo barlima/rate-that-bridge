@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import get from 'lodash/get';
 import UserContext from '../context/userContext';
 import { setUser } from '../reducers/user';
+import Loading from './Common/Loading';
 
 const CURRENT_USER = gql`
   query getCurrentUser {
@@ -29,20 +30,22 @@ const withUser = WrappedComponent => {
     }
 
     if (loading) {
-      return 'Loading...';
+      return <Loading />
     }
 
     const user = get(data, "me") || {};
 
-    dispatch(
-      setUser({
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        admin: user.admin,
-      })
-    );
+    if (user.id) {
+      dispatch(
+        setUser({
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          admin: user.admin,
+        })
+      );
+    }
 
     return (
       <WrappedComponent {...props} user={user} />

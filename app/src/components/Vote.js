@@ -75,13 +75,13 @@ const Vote = () => {
         currentPair && currentPair.length === 2 ? (
           <div className="vote__container">
             <div className="vote__image" onClick={() => voteOn(currentPair[0].id)}>
-              <img src={`${currentPair[0].pictureUrl}`} />
+              <img src={`${currentPair[0].pictureUrl}`} alt="First bridge image"/>
             </div>
 
             <div className="vote__vs">vs</div>
 
             <div className="vote__image" onClick={() => voteOn(currentPair[1].id)}>
-              <img src={`${currentPair[1].pictureUrl}`} />
+              <img src={`${currentPair[1].pictureUrl}`} alf="Second bridge image"/>
             </div>
           </div>
         ) : (

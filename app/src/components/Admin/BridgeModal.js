@@ -11,7 +11,7 @@ const BridgeModal = ({ bridge, close, confirm }) => {
   return (
     <Modal>
       <div className="admin__bridge-modal">
-        <img src={bridge.pictureUrl} />
+        <img src={bridge.pictureUrl} alt={bridge.name}/>
         <span className="admin__bridge-modal-name">{bridge.name}</span>
         <span className="admin__bridge-modal-city">{bridge.city} ({bridge.country})</span>
         <span className="admin__bridge-modal-year">{bridge.year}</span>

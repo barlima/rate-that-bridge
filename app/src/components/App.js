@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import withUser from './withUser';
 
@@ -47,7 +47,7 @@ const App = ({ history, user: currentUser }) => {
                 !currentUser.id && (
                   <div className={`landing-page__option-expand ${expandedClass}`}>
                     <a
-                      href="http://localhost:4000/auth/google" 
+                      href={process.env.REACT_APP_API_AUTH} 
                       className={`google-login landing-page__option-button ${fadeClass}`}
                     >
                       Sign in with Google

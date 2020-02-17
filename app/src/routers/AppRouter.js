@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
@@ -16,7 +16,7 @@ const history = createBrowserHistory();
 
 const AppRouter = () => {
   return (
-    <BrowserRouter history={history} >
+    <Router history={history} >
       <Switch>
         <PrivateRoute path="/vote" component={Vote} />
         <PrivateRoute path="/browse" component={Browse} />
@@ -26,7 +26,7 @@ const AppRouter = () => {
         <AdminRoute path="/admin" component={Admin} />
         <Route path="/" component={App} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
