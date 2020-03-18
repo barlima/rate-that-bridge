@@ -1,11 +1,16 @@
 import React from 'react';
 import Modal from '../Common/Modal';
 
-const BridgeModal = ({ bridge, close, confirm }) => {
+const BridgeModal = ({ bridge, close, confirm, reject }) => {
 
   const handleConfirm = () => {
     confirm();
     close()
+  }
+
+  const handleReject = () => {
+    reject();
+    close();
   }
 
   return (
@@ -20,6 +25,12 @@ const BridgeModal = ({ bridge, close, confirm }) => {
           onClick={handleConfirm}
         >
           Confirm
+        </button>
+        <button
+          className="admin__bridge-modal-button"
+          onClick={handleReject}
+        >
+          Reject
         </button>
         <button
           className="admin__bridge-modal-button"

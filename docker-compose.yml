@@ -17,6 +17,8 @@ services:
     image: barlima/rate-that-bridge-app
     ports:
       - '3000:3000'
+    volumes:
+      - './app/src:/usr/src/app/src'
     links:
       - api
   server:
