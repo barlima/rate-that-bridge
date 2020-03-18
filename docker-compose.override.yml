@@ -3,26 +3,23 @@ version: '3.5'
 services:
   api:
     container_name: api
-    command: "yarn run prod"
     image: barlima/rate-that-bridge-api
-    environment:
-      NODE_ENV: production
+    ports:
+      - '4000:4000'
     env_file:
       - '.env'
     volumes: 
       - './api/database.sqlite:/usr/src/app/database.sqlite'
-    ports:
-      - '4000:4000'
+      - './api/src:/usr/src/app/src'
   app:
     container_name: app
-    command: "yarn run serve"
     image: barlima/rate-that-bridge-app
-    environment:
-      NODE_ENV: production
-    env_file:
-      - '.env'
     ports:
       - '3000:3000'
+    env_file:
+      - '.env'
+    volumes:
+      - './app/src:/usr/src/app/src'
     links:
       - api
   server:

@@ -14,5 +14,8 @@ RUN yarn install
 
 COPY . /usr/src/app
 
+# build
+RUN yarn run build
+
 # start app
 CMD ["yarn", "start"]
