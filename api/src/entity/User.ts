@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "t
 import { ObjectType, Field, Int } from "type-graphql";
 import { Vote } from "./Vote";
 
-@ObjectType()
+@ObjectType('user')
 @Entity()
 export class User extends BaseEntity {
   @Field(() => Int)

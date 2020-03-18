@@ -10,7 +10,7 @@ import { Field, Int, ObjectType } from "type-graphql";
 import { Bridge } from "./Bridge";
 import { User } from "./User";
 
-@ObjectType()
+@ObjectType('vote')
 @Entity()
 export class Vote extends BaseEntity {
   @Field(() => Int)
