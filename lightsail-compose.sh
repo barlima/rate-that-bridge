@@ -24,5 +24,9 @@ systemctl enable docker-compose-app
 # copy .env.example
 curl -o /srv/rtb/.env https://github.com/barlima/rate-that-bridge/blob/master/.env.example
 
+# copy nginx config
+mkdir /srv/rtb/config
+curl -o /srv/rtb/config/nginx.config https://raw.githubusercontent.com/barlima/rate-that-bridge/master/config/nginx.conf
+
 # start up the application via docker-compose
 docker-compose -f /srv/rtb/docker-compose.yml up -d
