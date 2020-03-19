@@ -6,7 +6,7 @@ import { User } from "../entity/User";
 
 dotenv.config();
 
-const port = process.env.PORT || 4000;
+const port = process.env.API_PORT || 4000;
 
 passport.serializeUser((user, done) => {  
   done(null, user);

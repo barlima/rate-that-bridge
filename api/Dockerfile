@@ -18,4 +18,4 @@ COPY . /usr/src/app
 RUN yarn run build
 
 # start app
-CMD ["yarn", "start"]
+CMD ["yarn", "run", "prod"]

@@ -3,7 +3,6 @@ version: '3.5'
 services:
   api:
     container_name: api
-    command: "yarn run prod"
     image: barlima/rate-that-bridge-api
     environment:
       NODE_ENV: production
@@ -15,7 +14,6 @@ services:
       - '4000:4000'
   app:
     container_name: app
-    command: "yarn run serve"
     image: barlima/rate-that-bridge-app
     environment:
       NODE_ENV: production

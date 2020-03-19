@@ -16,7 +16,7 @@ dotenv.config();
 
 (async () => {
   const app = express();
-  const port = process.env.PORT || 4000;
+  const port = process.env.API_PORT || 4000;
 
   const options = await getConnectionOptions(
     process.env.NODE_ENV || "development"

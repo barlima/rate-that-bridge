@@ -2,33 +2,15 @@ version: '3.5'
 
 services:
   api:
-    container_name: api
-    image: barlima/rate-that-bridge-api
-    ports:
-      - '4000:4000'
-    env_file:
-      - '.env'
+    command: yarn start
+    environment:
+      NODE_ENV: development
     volumes: 
       - './api/database.sqlite:/usr/src/app/database.sqlite'
       - './api/src:/usr/src/app/src'
   app:
-    container_name: app
-    image: barlima/rate-that-bridge-app
-    ports:
-      - '3000:3000'
-    env_file:
-      - '.env'
-    volumes:
-      - './app/src:/usr/src/app/src'
-    links:
-      - api
-  server:
-    container_name: server
-    image: nginx:latest
-    volumes:
-      - './config/nginx.conf:/etc/nginx/nginx.conf'
-    depends_on:
-      - api
-    ports:
-      - '80:80'
-      - '443:443'
+    command: yarn start
+    # environment:
+      # NODE_ENV: development
+    # volumes:
+      # - './app/src:/usr/src/app/src'
