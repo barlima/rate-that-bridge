@@ -22,7 +22,7 @@ curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercon
 systemctl enable docker-compose-app
 
 # copy .env.example
-curl -o /etc/rtb/.env https://github.com/barlima/rate-that-bridge/blob/master/.env.example
+curl -o /srv/rtb/.env https://github.com/barlima/rate-that-bridge/blob/master/.env.example
 
 # start up the application via docker-compose
 docker-compose -f /srv/rtb/docker-compose.yml up -d
