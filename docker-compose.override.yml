@@ -14,3 +14,4 @@ services:
       NODE_ENV: development
     volumes:
       - './app/src:/usr/src/app/src'
+      - '.env:/usr/src/app/.env'

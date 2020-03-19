@@ -8,7 +8,7 @@ import App from "../components/App";
 import Profile from "../components/Profile";
 import Vote from "../components/Vote";
 import Browse from "../components/Browse";
-import TopBridges from "../components/TopBridges";
+import TopBridges from "../components/TopBridges/TopBridges";
 import Contribute from "../components/Contribute";
 import Admin from "../components/Admin/Admin";
 
