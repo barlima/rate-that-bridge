@@ -14,12 +14,15 @@ chmod +x /usr/local/bin/docker-compose
 # if you change this, change the systemd service file to match
 # WorkingDirectory=[whatever you have below]
 mkdir /srv/rtb
-curl -o /srv/rtb/docker-compose.yml https://https://raw.githubusercontent.com/barlima/rate-that-bridge/master/docker-compose.yml
+curl -o /srv/rtb/docker-compose.yml https://raw.githubusercontent.com/barlima/rate-that-bridge/master/docker-compose.yml
 
 # copy in systemd unit file and register it so our compose file runs 
 # on system restart
-curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/barlima/oh-that-bridge/master/docker-compose-app.service
+curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/barlima/rate-that-bridge/master/docker-compose-app.service
 systemctl enable docker-compose-app
+
+# copy .env.example
+curl -o /etc/rtb/.env https://github.com/barlima/rate-that-bridge/blob/master/.env.example
 
 # start up the application via docker-compose
 docker-compose -f /srv/rtb/docker-compose.yml up -d
