@@ -10,7 +10,7 @@ services:
       - './api/src:/usr/src/app/src'
   app:
     command: yarn start
-    # environment:
-      # NODE_ENV: development
-    # volumes:
-      # - './app/src:/usr/src/app/src'
+    environment:
+      NODE_ENV: development
+    volumes:
+      - './app/src:/usr/src/app/src'

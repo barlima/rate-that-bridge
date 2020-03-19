@@ -13,9 +13,6 @@ COPY package.json /usr/src/app/package.json
 RUN yarn install
 RUN yarn global add react-scripts@1.1.1
 
-# build the app
-RUN yarn run build
-
 COPY . /usr/src/app
 
 # start app

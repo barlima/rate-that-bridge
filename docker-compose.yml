@@ -4,10 +4,10 @@ services:
   api:
     container_name: api
     image: barlima/rate-that-bridge-api
-    environment:
-      NODE_ENV: production
     env_file:
       - '.env'
+    environment:
+      NODE_ENV: production
     volumes: 
       - './api/database.sqlite:/usr/src/app/database.sqlite'
     ports:
