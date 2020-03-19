@@ -9,7 +9,7 @@ services:
     env_file:
       - '.env'
     volumes: 
-      - 'sqlite:/usr/src/app/database.sqlite'
+      - './api/database.sqlite:/usr/src/app/database.sqlite'
     ports:
       - '4000:4000'
   app:
@@ -33,5 +33,3 @@ services:
     ports:
       - '80:80'
       - '443:443'
-volumes: 
-  sqlite:

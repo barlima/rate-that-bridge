@@ -26,7 +26,11 @@ curl -o /srv/rtb/.env https://github.com/barlima/rate-that-bridge/blob/master/.e
 
 # copy nginx config
 mkdir /srv/rtb/config
-curl -o /srv/rtb/config/nginx.config https://raw.githubusercontent.com/barlima/rate-that-bridge/master/config/nginx.conf
+curl -o /srv/rtb/config/nginx.conf https://raw.githubusercontent.com/barlima/rate-that-bridge/master/config/nginx.conf
+
+# create db file
+mkdir /srv/rtb/api
+touch /srv/rtb/api/database.sqlite
 
 # start up the application via docker-compose
 docker-compose -f /srv/rtb/docker-compose.yml up -d
