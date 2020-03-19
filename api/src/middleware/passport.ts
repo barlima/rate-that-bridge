@@ -7,6 +7,9 @@ import { User } from "../entity/User";
 dotenv.config();
 
 const port = process.env.API_PORT || 4000;
+const host = process.env.NODE_ENV === "production"
+  ? process.env.API_HOST
+  : `${process.env.API_HOST}:${port}`;
 
 passport.serializeUser((user, done) => {  
   done(null, user);
@@ -19,7 +22,7 @@ passport.deserializeUser((userDataFromCookie, done) => {
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENT_ID as string,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    callbackURL: `${process.env.API_HOST}:${port}/auth/google/callback`,
+    callbackURL: `${host}/auth/google/callback`,
   },
   async (_, __, profile, cb) => {
     const { id, name, emails } = profile;
