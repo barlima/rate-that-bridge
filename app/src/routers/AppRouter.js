@@ -12,6 +12,7 @@ import TopBridges from "../components/TopBridges/TopBridges";
 import Contribute from "../components/Contribute";
 import Admin from "../components/Admin/Admin";
 import About from "../components/About";
+import SignUp from "../components/Auth/SignUp";
 
 const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ const AppRouter = () => {
         <PrivateRoute path="/top_bridges" component={TopBridges} />
         <PrivateRoute path="/profile" component={Profile} />
         <AdminRoute path="/admin" component={Admin} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/contribute" component={Contribute} />
         <Route path="/about" component={About} />
         <Route path="/" component={App} />
