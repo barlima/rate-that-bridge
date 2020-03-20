@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
     <div className="about">
+      <div className="about__back">
+        <Link to="/"><span>{"<"}</span> Back</Link>
+      </div>
       <h1 className="about__app-title">Rate that Bridge!</h1>
 
       <div className="about__content">
