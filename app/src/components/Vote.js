@@ -55,7 +55,7 @@ const Vote = () => {
       setCurrentPair(chunkedPairs.pop());
       setPairs(chunkedPairs);
     }
-  });
+  }, [data]);
 
   const voteOn = async bridgeId => {
     try {
