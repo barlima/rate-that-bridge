@@ -63,14 +63,18 @@ const App = ({ history, user: currentUser }) => {
               </div>
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
-              <div className="landing-page__option-label">
-                About
-              </div>
+              <Link to="/about">
+                <div className="landing-page__option-label">
+                  About
+                </div>
+              </Link>
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
-              <div className="landing-page__option-label">
-                <Link to="/contribute">Contribute</Link>
-              </div>
+              <Link to="/contribute">
+                <div className="landing-page__option-label">
+                  Contribute
+                </div>
+              </Link>
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
               <div className="landing-page__option-label">

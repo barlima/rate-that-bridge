@@ -87,6 +87,11 @@
       &:nth-child(5) { width: calc(30vw + 140px) };
     }
 
+    a {
+      color: $light-grey;
+      text-decoration: none;
+    }
+
     &-label {
       color: $light-grey;
       font-size: 25px;      
@@ -94,11 +99,6 @@
       font-weight: 700;
       padding: 30px;
       position: relative;
-
-      a {
-        color: $light-grey;
-        text-decoration: none;
-      }
     }
 
     &-expand {
