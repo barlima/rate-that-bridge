@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import get from 'lodash/get';
 
-const SignIn = ({ history }) => {
+const SignIn = () => {
   const [ error, setError ] = useState();
   const submit = async event => {
     event.preventDefault();
@@ -11,14 +11,15 @@ const SignIn = ({ history }) => {
     const password = get(event, "target.password.value");
 
     const res = await fetch(`/auth/login?username=${username}&password=${password}`, {
-      method: 'POST'
+      method: 'POST',
     });
     
     if (!res.ok) {
       setError("Invalid name or password");
+      return;
     }
 
-    history.push('/vote');
+    window.location.href = '/vote';
   }
 
   return (
@@ -51,4 +52,4 @@ const SignIn = ({ history }) => {
   )
 }
 
-export default withRouter(SignIn);
+export default SignIn;

@@ -20,12 +20,17 @@ const SignUp = ({ history }) => {
   const submit = async event => {
     event.preventDefault();
 
-    const username = get(event, "target.username.value").toLowerCase();
+    const username = get(event, "target.username.value").toLowerCase().trim();
     const firstName = get(event, "target.firstname.value") || null;
     const lastName = get(event, "target.lastname.value") || null;
     const password = get(event, "target.password.value");
     const passwordConfirmation = get(event, "target.password-confirm.value");
 
+    if (!username) {
+      setError('Invalid username');
+      return;
+    }
+    
     if (password !== passwordConfirmation ) {
       setError('Passwords don\'t match');
       return;
