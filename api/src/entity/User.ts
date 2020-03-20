@@ -9,20 +9,23 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
   firstName: string;
 
-  @Field()
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column('text', { nullable: true })
   lastName: string;
 
   @Field(() => String, { nullable: true })
   @Column('text', { nullable: true })
   email: string;
 
+  @Column({ nullable: true })
+  password: string;
+
   @Field()
-  @Column()
+  @Column('text', { nullable: true })
   googleId: string;
 
   @Field()

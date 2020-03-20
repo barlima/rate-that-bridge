@@ -1,7 +1,24 @@
-import { Resolver, Query, Ctx, ObjectType, Field, Int } from "type-graphql";
+import { Resolver, Query, Ctx, ObjectType, Field, Int, Mutation, InputType, Arg } from "type-graphql";
 import { User } from "../entity/User";
 import { Context } from "../types/graphql-utils";
 import { createQueryBuilder } from "typeorm";
+import { ApolloError } from "apollo-server-express";
+
+@InputType()
+class UserInput {
+  @Field(() => String, { nullable: true })
+  firstName?: string
+
+  @Field(() => String, { nullable: true })
+  lastName?: string
+
+  @Field()
+  username: string;
+
+  @Field()
+  password: string;
+}
+
 
 @ObjectType()
 class Stats {
@@ -50,5 +67,27 @@ export class UserResolver {
     const votes = await createQueryBuilder('Vote').getCount();
 
     return new Stats(bridges, users, votes);
+  }
+
+  @Mutation(() => User)
+  async signUp(
+    @Arg('userInput', () => UserInput) userInput: UserInput 
+  ) {
+    const { firstName, lastName, username, password } = userInput;
+    const found = await User.findOne({ email: username });
+    if (found) { throw new ApolloError('Username already taken'); }
+
+    const user = User.create({
+      firstName,
+      lastName,
+      email: username,
+      password,
+    });
+
+    try {
+      return await user.save()
+    } catch (error) {
+      throw new ApolloError('Cannot create user');
+    }
   }
 }

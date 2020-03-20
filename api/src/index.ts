@@ -54,6 +54,11 @@ dotenv.config();
     (_, res) => res.redirect(`${process.env.FRONTEND_HOST}/vote`),
   );
 
+  app.post('/auth/login', 
+    passportMiddleware.authenticate('local'),
+    (_, res) => res.redirect(`${process.env.FRONTEND_HOST}/vote`)
+  );
+
   apolloServer.applyMiddleware({ app, cors: false });
   
   app.listen(port, () => {

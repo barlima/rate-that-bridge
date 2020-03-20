@@ -2,6 +2,12 @@
   position: relative;
   padding: 25px;
 
+  &__login {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+  }
+
   &__back {
     font-size: 20px;
     font-weight: 700;
@@ -46,7 +52,6 @@
       font-size: 15px;
       font-weight: 400;
       text-align: center;
-      text-transform: uppercase;
       height: 50px;
       margin: 5px;
     }
