@@ -52,9 +52,11 @@ const App = ({ history, user: currentUser }) => {
               
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
-              <div className="landing-page__option-label">
-                Browse
-              </div>
+              <Link to="/bridges">
+                <div className="landing-page__option-label">
+                  Browse
+                </div>
+              </Link>
             </div>
             <div className={`landing-page__option ${squeezeClass}`}>
               <Link to="/about">

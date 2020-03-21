@@ -3,11 +3,11 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import get from 'lodash/get';
 import { withRouter } from 'react-router-dom';
-import withMenu from './Menu/withMenu';
-import { getPaginatedItems } from '../helpers/common';
-import { filterBridges } from '../helpers/browse';
-import Pagination from './Common/Pagination';
-import Loading from './Common/Loading';
+import withMenu from '../Menu/withMenu';
+import { getPaginatedItems } from '../../helpers/common';
+import { filterBridges } from '../../helpers/browse';
+import Pagination from '../Common/Pagination';
+import Loading from '../Common/Loading';
 
 const BRIDGES = gql`
   query getBridges {

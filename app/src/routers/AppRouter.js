@@ -7,7 +7,8 @@ import AdminRoute from "./AdminRoute";
 import App from "../components/App";
 import Profile from "../components/Profile";
 import Vote from "../components/Vote";
-import Browse from "../components/Browse";
+import Browse from "../components/Browse/Browse";
+import BridgesList from "../components/Browse/BridgesList";
 import TopBridges from "../components/TopBridges/TopBridges";
 import Contribute from "../components/Contribute";
 import Admin from "../components/Admin/Admin";
@@ -30,6 +31,7 @@ const AppRouter = () => {
         <Route path="/signin" component={SignIn} />
         <Route path="/contribute" component={Contribute} />
         <Route path="/about" component={About} />
+        <Route path="/bridges" component={BridgesList} />
         <Route path="/" component={App} />
       </Switch>
     </Router>
