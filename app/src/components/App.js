@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import withUser from './withUser';
+import SignUpOptions from './Auth/SignUpOptions';
 
 const ROLL_DOWN = "roll-down";
 const ROLL_UP = "roll-up";
@@ -45,14 +46,7 @@ const App = ({ history, user: currentUser }) => {
               </div>
               {
                 !currentUser.id && (
-                  <div className={`landing-page__option-expand ${expandedClass}`}>
-                    <a
-                      href={process.env.REACT_APP_API_AUTH} 
-                      className={`google-login landing-page__option-button ${fadeClass}`}
-                    >
-                      Sign in with Google
-                    </a>
-                  </div>
+                  <SignUpOptions expandedClass={expandedClass} fadeClass={fadeClass} />
                 )
               }
               

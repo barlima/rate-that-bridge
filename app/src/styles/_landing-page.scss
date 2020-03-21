@@ -111,13 +111,30 @@
     }
 
     &-button {
-      left: 50%;
-      margin-top: 15px;
-      position: absolute;
+      width: 48%;
       text-decoration: none;
-      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    &-auth {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-sign-in {
+      display: flex;
+      flex-direction: column;
       opacity: 0;
-      width: 240px;
+      left: 50%;
+      margin-top: 5px;
+      position: absolute;
+      transform: translateX(-50%);
+
+      &-or {
+        color: $light-grey;
+        margin: 10px;
+        text-align: center;
+      }
     }
   }
 }

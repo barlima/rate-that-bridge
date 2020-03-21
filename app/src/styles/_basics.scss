@@ -11,7 +11,7 @@ body {
 
 .secondary-background {
   background: linear-gradient(to bottom, $blue -50%, $dark-pink);
-  width: calc(100vw - 50px);
+  max-width: calc(100vw - 50px);
   height: calc(100vh - 50px);
   min-height: 700px;
 }

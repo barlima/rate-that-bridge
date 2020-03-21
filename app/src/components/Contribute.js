@@ -97,14 +97,14 @@ const Contribute = () => {
       </div>
 
       <form className="contribute__form" onSubmit={submit} >
-        <input type="text" ref={nameRef} defaultValue={bridge.name} name="name" placeholder="name" onChange={updateBridge} />
-        <input type="text" ref={cityRef} defaultValue={bridge.city} name="city" placeholder="city" onChange={updateBridge} />
-        <input type="text" ref={countryRef} defaultValue={bridge.country} name="country" placeholder="country" onChange={updateBridge} />
-        <input type="text" ref={regionRef} defaultValue={bridge.region} name="region" placeholder="region" onChange={updateBridge} />
-        <input type="text" ref={yearRef} defaultValue={bridge.year} name="year" placeholder="year" onChange={updateBridge} />
-        <input type="text" ref={urlRef} defaultValue={bridge.moreInfoUrl} name="moreInfoUrl" placeholder="more info url" onChange={updateBridge} />
-        <input type="text" ref={pictureUrlRef} defaultValue={bridge.pictureUrl} name="pictureUrl" placeholder="picture url" onChange={updateBridge} />
-        <input type="submit" className="contribute__form-submit" />
+        <input type="text" ref={nameRef} defaultValue={bridge.name} name="name" placeholder="NAME" onChange={updateBridge} />
+        <input type="text" ref={cityRef} defaultValue={bridge.city} name="city" placeholder="CITY" onChange={updateBridge} />
+        <input type="text" ref={countryRef} defaultValue={bridge.country} name="country" placeholder="COUNTRY" onChange={updateBridge} />
+        <input type="text" ref={regionRef} defaultValue={bridge.region} name="region" placeholder="REGION" onChange={updateBridge} />
+        <input type="text" ref={yearRef} defaultValue={bridge.year} name="year" placeholder="YEAR" onChange={updateBridge} />
+        <input type="text" ref={urlRef} defaultValue={bridge.moreInfoUrl} name="moreInfoUrl" placeholder="MORE INFO URL" onChange={updateBridge} />
+        <input type="text" ref={pictureUrlRef} defaultValue={bridge.pictureUrl} name="pictureUrl" placeholder="PICTURE URL" onChange={updateBridge} />
+        <input type="submit" className="contribute__form-submit" value="SUBMIT" />
 
         {
           error && (

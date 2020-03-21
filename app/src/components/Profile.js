@@ -26,6 +26,11 @@ const Profile = () => {
     fetchPolicy: "network-only"
   });
 
+  const logout = async () => {
+    const res = await fetch(`/auth/logout`, { method: 'post' });
+    window.location.reload();
+  }
+
   const votes = get(data, "myVotes", []);
   const recentlyVoted = getRecentlyVoted(votes);
   const favorite = getFavoriteBridge(votes);
@@ -34,7 +39,11 @@ const Profile = () => {
     <div className="profile">
       <div>
         <div className="profile__user-data">
-          <span>{ user.firstName } { user.lastName }</span>
+          {
+            (user.firstName || user.lastName) && (
+              <span>{ user.firstName } { user.lastName }</span>
+            )
+          }
           <span className="profile__user-data-email">{ user.email }</span>
         </div>
 
@@ -49,6 +58,10 @@ const Profile = () => {
             </Link>
           )
         }
+
+        <div onClick={logout} className="profile__button">
+          Logout
+        </div>
       </div>
 
       <div className="profile__recently-voted">

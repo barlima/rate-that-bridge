@@ -6,6 +6,7 @@ import get from 'lodash/get';
 import chunk from 'lodash/chunk';
 import shuffle from 'lodash/shuffle';
 import { Link } from 'react-router-dom';
+import VotePair from './VotePair';
 
 const BRIDGES = gql`
   query getBridges($filter: BridgeFilter!) {
@@ -29,6 +30,7 @@ const VOTE = gql`
 
 const Vote = () => {
   const [ pairs, setPairs ] = useState([]);
+  const [ currentPair, setCurrentPair ] = useState([]);
   const [ vote ] = useMutation(VOTE);
   const { loading, error, data } = useQuery(BRIDGES, {
     skip: pairs.length > 0,
@@ -47,25 +49,22 @@ const Vote = () => {
       return;
     }
 
-    const paired = chunk(shuffle(bridges), 2);
-    setPairs(paired.filter(pair => pair.length === 2));
+    if(pairs.length === 0) {
+      const paired = chunk(shuffle(bridges), 2);
+      const chunkedPairs = paired.filter(pair => pair.length === 2);
+      setCurrentPair(chunkedPairs.pop());
+      setPairs(chunkedPairs);
+    }
   }, [data]);
 
   const voteOn = async bridgeId => {
     try {
-      const res = await vote({ variables: { bridgeId }});
-
-      if(res.error) {
-        return;
-      }
-
-      setPairs(pairs);
+      await vote({ variables: { bridgeId }});
+      setCurrentPair(pairs.pop());
     } catch (e) {
       console.error(e);
     }
   }
-
-  const currentPair = pairs.pop();
 
   return (
     <div className="vote">
@@ -73,17 +72,10 @@ const Vote = () => {
 
       {
         currentPair && currentPair.length === 2 ? (
-          <div className="vote__container">
-            <div className="vote__image" onClick={() => voteOn(currentPair[0].id)}>
-              <img src={`${currentPair[0].pictureUrl}`} alt="First bridge image"/>
-            </div>
-
-            <div className="vote__vs">vs</div>
-
-            <div className="vote__image" onClick={() => voteOn(currentPair[1].id)}>
-              <img src={`${currentPair[1].pictureUrl}`} alf="Second bridge image"/>
-            </div>
-          </div>
+          <VotePair
+            pair={currentPair} 
+            voteOn={id => voteOn(id)}
+          />
         ) : (
           !loading && (
             <div className="vote__no-more">
