@@ -14,6 +14,7 @@ const VOTES = gql`
       id
       created
       bridge {
+        id
         name
       }
     }
@@ -32,8 +33,10 @@ const Profile = () => {
   }
 
   const votes = get(data, "myVotes", []);
+  const bridges = votes.map(v => v.bridge);
   const recentlyVoted = getRecentlyVoted(votes);
-  const favorite = getFavoriteBridge(votes);
+  const favorite = getFavoriteBridge(votes) || {};
+  const favoriteBridge = bridges.find(b => b.id === parseInt(favorite.id));
 
   return (
     <div className="profile">
@@ -73,12 +76,14 @@ const Profile = () => {
           {
             recentlyVoted.length > 0 ? (
               recentlyVoted.map(vote => (
-                <div key={vote.id} className="profile__recently-voted-item">
-                  <span>{ vote.bridge.name }</span>
-                  <span className="profile__recently-voted-date">
-                    { moment(vote.created).fromNow() }
-                  </span>
-                </div>
+                <Link to={`/bridges/${vote.bridge.id}`} key={vote.id} className="profile__link">
+                  <div className="profile__recently-voted-item">
+                    <span>{ vote.bridge.name }</span>
+                    <span className="profile__recently-voted-date">
+                      { moment(vote.created).fromNow() }
+                    </span>
+                  </div>
+                </Link>
               ))
             ) : (
               <span className="profile__no-votes">You haven't voted yet</span>
@@ -87,18 +92,20 @@ const Profile = () => {
         </div>
 
         {
-          favorite && favorite.name && (
+          favorite && favorite.id && (
             <div className="profile__favorite-bridge">
               <div className="profile__favorite-title">
                 Favorite bridge
               </div>
 
-              <div className="profile__recently-voted-item">
-                <span>{ favorite?.name }</span>
-                <span className="profile__recently-voted-date">
-                  { favorite?.value }
-                </span>
-              </div>
+              <Link to={`/bridges/${favorite.id}`} className="profile__link">
+                <div className="profile__recently-voted-item">
+                  <span>{ favoriteBridge.name }</span>
+                  <span className="profile__recently-voted-date">
+                    { favorite?.value }
+                  </span>
+                </div>
+              </Link>
             </div>
           )
         }

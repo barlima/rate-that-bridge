@@ -6,7 +6,7 @@ export const getDate = (period: Period) => {
     case 0:
       return moment.utc().startOf('day').subtract(1, 'minute').toISOString();
     case 1:
-      return moment.utc().startOf('week').toISOString();
+      return moment.utc().startOf('week').subtract(1, 'minute').toISOString();
     case 2:
       return moment.utc().startOf('month').toISOString();
     case 4:

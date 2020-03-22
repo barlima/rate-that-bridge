@@ -8,8 +8,8 @@ export const getRecentlyVoted = votes => {
 }
 
 export const getFavoriteBridge = votes => {
-  const grouped = groupBy(votes.map(vote => vote.bridge.name));
+  const grouped = groupBy(votes.map(vote => vote.bridge.id));
   const keys = Object.keys(grouped);
-  const stats = keys.map(key => ({ name: key, value: grouped[key].length }));
+  const stats = keys.map(key => ({ id: key, value: grouped[key].length }));
   return stats.sort((a,b) => b.value - a.value)[0];
 }
