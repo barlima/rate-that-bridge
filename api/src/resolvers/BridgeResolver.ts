@@ -95,6 +95,13 @@ export class BridgeResolver {
     return true;
   }
 
+  @Query(() => Bridge, { nullable: true })
+  async bridge(
+    @Arg('id', () => Int) id: number
+  ) {
+    return await Bridge.findOne({ relations: ["votes", "votes.user"], where: { id } });
+  }
+
   @Query(() => [Bridge])
   bridges(
     @Ctx() ctx: Context,

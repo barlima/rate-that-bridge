@@ -38,6 +38,15 @@ const SignIn = () => {
           <input type="password" name="password" placeholder="PASSWORD" />
           <input type="submit" className="signup__form-submit" />
 
+          <span className="signup__or">or</span>
+
+          <a
+            href={process.env.REACT_APP_API_AUTH} 
+            className={`google-login signup__external`}
+          >
+            Sign in with Google
+          </a>
+
           {
             error && (
               <div className="contribute__error">

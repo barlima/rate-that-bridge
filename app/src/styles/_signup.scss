@@ -56,6 +56,19 @@
       margin: 5px;
     }
   }
+
+  &__external {
+    margin: 5px;
+    text-decoration: none;
+  }
+
+  &__or {
+    color: $light-grey;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 input.signup__form-submit {

@@ -1,6 +1,7 @@
 .bridges {
   background: linear-gradient(to bottom, $blue -50%, $dark-pink);
   max-width: calc(100vw - 50px);
+  min-height: calc(100vh - 50px);
   padding: 25px;
   position: relative;
 
@@ -8,6 +9,10 @@
     color: $light-grey;
     margin-bottom: 50px;
     text-align: center;
+  }
+
+  &__link {
+    text-decoration: none;
   }
 
   &__item {
@@ -53,6 +58,96 @@
         width: 80px;
         object-fit: cover;
       }
+    }
+  }
+}
+
+.bridge {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+
+  &__background {
+    background: linear-gradient(to bottom, $blue -50%, $dark-pink);
+    max-width: calc(100vw - 50px);
+    height: calc(100vh - 50px);
+  }
+
+  &__label {
+    font-size: 30px;
+    font-weight: 300;
+    text-align: left;
+  }
+
+  &__title {
+    font-size: 30px;
+  }
+
+  &__subtitle {
+    font-size: 30px;
+    font-weight: 300;;
+  }
+
+  &__data {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-right: 15px;
+
+    &-container {
+      background-color: $light-grey;
+      color: $blue;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: auto;
+    }
+
+    a {
+      color: $dark-pink;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color .5s ease-out;
+  
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+
+  &__img {
+    flex: 1;
+    right: 20px;
+    top: 20px;
+    text-align: right;
+
+    img {
+      border: 8px solid $light-grey;
+      height: 60vh;
+      width: 60vh;
+      max-width: 50vw;
+      max-height: 50vw;
+      object-fit: cover;
+    }
+  }
+
+  &__signup {
+    background-color: $light-grey;
+    color: $blue;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+
+    a {
+      margin-right: 10px;
+    }
+
+    span {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 15px;
     }
   }
 }
